@@ -3,7 +3,7 @@ $(document).ready(onReady);
 function onReady() {
     // Add our click handler for submit artist
     $('#submit-artist').on('click', sendArtistToServer);
-
+    $('#submit-song').on('click', sendSongToServer)
     // load data from the server, put it on the DOM
     getArtistData();
     getSongData();    
@@ -72,5 +72,27 @@ function getSongData() {
         }
     }).catch(function (error) {
         console.log('error in song get', error);
+    });
+}
+
+function sendSongToServer() {
+    console.log('In send song to server function');
+
+    const songToSend = {
+        title: $('#song-name').val(),
+        length: $('#song-length').val(),
+        date_released: $('#date-released').val()
+    };
+    console.log(songToSend);
+    // sending to the server
+    $.ajax({
+        method: 'POST',
+        url: '/songs',
+        data: songToSend
+    }).then(function(response) {
+        console.log('getting response', response);
+        getSongData();
+    }).catch(function(error) {
+        console.log('Error in the song post', error);
     });
 }

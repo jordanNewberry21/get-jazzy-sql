@@ -31,9 +31,9 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     let song = req.body;
-    let sqlText = `INSERT INTO songs (title, length, date_released)
-                    VALUES ($1, $2, $3);`;
-    pool.query(sqlText, [song.title, song.length, song.date_released])
+    let sqlText = `INSERT INTO songs (title, length, date_released, album)
+                    VALUES ($1, $2, $3, $4);`;
+    pool.query(sqlText, [song.title, song.length, song.date_released, song.album])
         .then((response) => {
             console.log('received new song');
             res.sendStatus(201);

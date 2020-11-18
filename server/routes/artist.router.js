@@ -16,7 +16,7 @@ const pool = new Pool({
 router.get('/', (req, res) => {
     console.log(`In /artist GET`);
 
-    let queryText = `SELECT * FROM "artists";`;
+    let queryText = `SELECT * FROM "artists" ORDER BY artist_name;`;
     pool.query(queryText).then((result) => {
         // send back our query results as an array of objects
         res.send(result.rows); // result.rows will always be an Array
